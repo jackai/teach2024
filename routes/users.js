@@ -36,7 +36,7 @@ router.post('/login', function(req, res, next) {
   });
 
   if (login) {
-    res.cookie('account', req.body.account);
+    res.cookie('account', req.body.account, {signed: true});
     res.redirect('/');
   }
 
