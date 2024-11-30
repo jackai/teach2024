@@ -1,19 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-/* GET home page. */
+/* 顯示登入頁面 */
 router.get('/login', function(req, res, next) {
   const message = req.query?.message;
 
   res.render('users/login', { title: 'Express', message });
 });
 
-/* GET home page. */
+/* 送出登入頁面 */
 router.post('/login', function(req, res, next) {
   console.log({
     body: req.body,
