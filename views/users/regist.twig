@@ -1,0 +1,18 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  {% if message %}
+    <div style="background-color: red">{{ message }}</div>
+  {% endif %}
+  <form action="/users/regist" method="post">
+    <label for="account">帳號：</label>
+    <input type="text" id="account" name="account">
+    <br>
+
+    <label for="password">密碼：</label>
+    <input type="password" id="password" name="password">
+    <br>
+
+    <button type="submit">註冊</button>
+  </form>
+{% endblock %}
