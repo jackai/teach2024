@@ -1,6 +1,9 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
+  {% if message %}
+    <div style="background-color: red">{{ message }}</div>
+  {% endif %}
   <form action="/users/login" method="post">
     <label for="account">帳號：</label>
     <input type="text" id="account" name="account">
