@@ -8,4 +8,11 @@
 {{row['created_at']|date('Y-m-d H:i:s')}}
 {% endfor %}
 
+{% if account %}
+<form action="/message/create" method="post">
+<textarea name="message"></textarea>
+<button>送出</button>
+</form>
+{% endif %}
+
 {% endblock %}

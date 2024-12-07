@@ -28,7 +28,7 @@ router.post('/login', async function(req, res, next) {
   }
   
   res.cookie('user_id', rows[0].id, {signed: true});
-  res.cookie('account', rows[0].account, {signed: true});
+  res.cookie('account', req.body.account, {signed: true});
   res.redirect('/');
 });
 
