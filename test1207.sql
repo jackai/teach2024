@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1:3306
--- 產生時間： 2024-11-30 10:20:37
+-- 產生時間： 2024-12-07 10:14:59
 -- 伺服器版本： 8.0.31
 -- PHP 版本： 8.0.26
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `test1130`
+-- 資料庫： `test1207`
 --
 
 -- --------------------------------------------------------
@@ -34,7 +34,16 @@ CREATE TABLE IF NOT EXISTS `message` (
   `message` varchar(1024) NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- 傾印資料表的資料 `message`
+--
+
+INSERT INTO `message` (`id`, `user_id`, `message`, `created_at`) VALUES
+(1, 1, 'ragbfdab', '2024-12-07 09:12:12'),
+(2, 2, 'bnaefdf', '2024-12-07 09:12:12'),
+(3, 7, '測試', '2024-12-07 18:09:51');
 
 -- --------------------------------------------------------
 
@@ -47,7 +56,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `account` varchar(20) NOT NULL,
   `password` varchar(1024) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account` (`account`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

@@ -5,6 +5,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   const account = req.signedCookies?.account;
 
+  console.log({account, cookie: req.signedCookies});
+
   res.render('index', { title: 'Express', account });
 });
 
