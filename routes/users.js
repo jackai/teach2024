@@ -28,7 +28,7 @@ router.post('/login', async function(req, res, next) {
   }
   
   res.cookie('user_id', rows[0].id, {signed: true});
-  res.cookie('account', rows[0].account, {signed: true});
+  res.cookie('account', req.body.account, {signed: true});
   res.redirect('/');
 });
 
@@ -43,13 +43,17 @@ router.get('/regist', function(req, res, next) {
 router.post('/regist', async function(req, res, next) {
   const hash_password = await argon2.hash(req.body.password);
 
-  const [rows,fields] = await mysql.execute(
-    'INSERT INTO users (account, password) VALUES (?,?)', 
-    [req.body.account, hash_password]
-  );
+  try {
+    const [rows,fields] = await mysql.execute(
+      'INSERT INTO users (account, password) VALUES (?,?)',
+      [req.body.account, hash_password]
+    );
 
-  if (rows.affectedRows === 1) {
-    return res.redirect('/users/login?message=註冊成功');
+    if (rows.affectedRows === 1) {
+      return res.redirect('/users/login?message=註冊成功');
+    }
+  } catch(e) {
+    console.log(e.message);
   }
 
   return res.redirect('/users/regist?message=註冊失敗');
