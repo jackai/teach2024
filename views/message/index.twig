@@ -1,12 +1,19 @@
 {% extends 'layout.twig' %}
 
+{% block head %}
+<link rel='stylesheet' href='/stylesheets/message.css' />
+{% endblock %}
+
 {% block body %}
 
-{% for row in rows %}
-{{row['account']}}
-{{row['message']}}
-{{row['created_at']|date('Y-m-d H:i:s')}}
-{% endfor %}
+<div>
+    {% for row in rows %}
+    <div class="m">
+        <div class="t">{{row['account']}} {{row['created_at']|date('Y-m-d H:i:s')}}</div>
+        <div>{{row['message']}}</div>
+    </div>
+    {% endfor %}
+</div>
 
 {% if account %}
 <form action="/message/create" method="post">
