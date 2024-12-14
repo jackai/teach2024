@@ -17,6 +17,21 @@ router.get('/', async function(req, res, next) {
   res.render('message/index', { title: 'Express', account, rows });
 });
 
+router.get('/new-message', async function(req, res, next) {
+  const [rows,fields] = await mysql.execute(
+    'SELECT users.account AS account, message, created_at ' +
+    'FROM message ' +
+    'INNER JOIN `users` ON `users`.`id` = message.user_id ' +
+    'ORDER BY message.id DESC LIMIT 10', 
+    []
+  );
+
+  return res.json({
+    status: true,
+    data: rows,
+  });
+})
+
 router.post('/', async function(req, res, next) {
     const user_id = req.signedCookies?.user_id;
     const message = req.body?.message;
