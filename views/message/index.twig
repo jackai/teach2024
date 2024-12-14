@@ -17,11 +17,13 @@
 
 {% if account %}
 <div id="m-form">
-    <form action="/message/create" method="post">
+    <form action="/message/" method="post">
         <textarea name="message"></textarea>
-        <button>送出</button>
+        <button type="button" onclick="create_message();">送出</button>
     </form>
 </div>
 {% endif %}
+
+<script src="/javascript/message.js"></script>
 
 {% endblock %}

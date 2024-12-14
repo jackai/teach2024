@@ -17,7 +17,7 @@ router.get('/', async function(req, res, next) {
   res.render('message/index', { title: 'Express', account, rows });
 });
 
-router.post('/create', async function(req, res, next) {
+router.post('/', async function(req, res, next) {
     const user_id = req.signedCookies?.user_id;
     const message = req.body?.message;
 
@@ -25,13 +25,18 @@ router.post('/create', async function(req, res, next) {
         'INSERT INTO message (user_id, message, created_at) VALUES (?, ?, NOW())', 
         [user_id, message]
     );
-
       
     if (rows.affectedRows === 1) {
-        return res.redirect('/message');
+      return res.json({
+        status:true,
+      })
     }
     
-    return res.redirect('/message?message=留言失敗');
+    return res.json({
+      status:false,
+      message:'留言失敗',
+    })
 });
+
 
 module.exports = router;
