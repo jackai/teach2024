@@ -8,18 +8,20 @@
 
 <div>
     {% for row in rows %}
-    <div class="m">
-        <div class="t">{{row['account']}} {{row['created_at']|date('Y-m-d H:i:s')}}</div>
-        <div>{{row['message']}}</div>
+    <div class="m-box">
+        <div class="t">{{row['account']}} {{row['created_at']|date('H:i')}}</div>
+        <div class="m">{{row['message']}}</div>
     </div>
     {% endfor %}
 </div>
 
 {% if account %}
-<form action="/message/create" method="post">
-<textarea name="message"></textarea>
-<button>送出</button>
-</form>
+<div id="m-form">
+    <form action="/message/create" method="post">
+        <textarea name="message"></textarea>
+        <button>送出</button>
+    </form>
+</div>
 {% endif %}
 
 {% endblock %}
