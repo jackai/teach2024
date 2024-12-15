@@ -1,0 +1,16 @@
+.m-box {
+    margin: 10px 0;
+}
+
+.m {
+    background-color: #FFF;
+    border-radius: 5px;
+}
+
+#m-form button{
+    height: 36px;
+}
+
+body{
+    background-color: #EEE;
+}

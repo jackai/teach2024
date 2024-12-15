@@ -1,18 +1,29 @@
 {% extends 'layout.twig' %}
 
+{% block head %}
+<link rel='stylesheet' href='/stylesheets/message.css' />
+{% endblock %}
+
 {% block body %}
 
-{% for row in rows %}
-{{row['account']}}
-{{row['message']}}
-{{row['created_at']|date('Y-m-d H:i:s')}}
-{% endfor %}
+<div id="chat-box">
+    {% for row in rows %}
+    <div class="m-box">
+        <div class="t">{{row['account']}} {{row['created_at']|date('H:i')}}</div>
+        <div class="m">{{row['message']}}</div>
+    </div>
+    {% endfor %}
+</div>
 
 {% if account %}
-<form action="/message/create" method="post">
-<textarea name="message"></textarea>
-<button>送出</button>
-</form>
+<div id="m-form">
+    <form action="/message/" method="post">
+        <textarea name="message" id="form-message"></textarea>
+        <button type="button" onclick="create_message();">送出</button>
+    </form>
+</div>
 {% endif %}
+
+<script src="/javascript/message.js"></script>
 
 {% endblock %}
