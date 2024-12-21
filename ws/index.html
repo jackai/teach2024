@@ -26,17 +26,40 @@ ws.onclose = () => {
 
 //接收 Server 發送的訊息
 ws.onmessage = event => {
-    console.log(event)
+    const rawData = event.data;
+    let parse = false;
 
+    try {
+        parse = JSON.parse(rawData);
+    } catch(e) {
+
+    }
+
+    if (!parse) {
+        return;
+    }
+
+    switch (parse.type) {
+        case 'message':
+            printMessage(parse.data.message);
+    }
+}
+
+const printMessage = (message) => {
     const messageDom = document.getElementById('message');
     const d = new Date();
 
-    messageDom.innerHTML += `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} - ${event.data}<br />`
+    messageDom.innerHTML += `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} - ${message}<br />`
 }
   
 const sendMessage = () => {
     const sendMessageDom = document.getElementById('send-message');
-    ws.send(sendMessageDom.value);
+    ws.send(JSON.stringify({
+        type: 'send_message',
+        data: {
+            message: sendMessageDom.value
+        }
+    }));
     sendMessageDom.value = '';
 };
     </script>

@@ -12,6 +12,25 @@ const server = express()
 //將 express 交給 SocketServer 開啟 WebSocket 的服務
 const wss = new SocketServer({ server })
 
+const sendMessage = (message) => {
+    //取得所有連接中的 client
+    let clients = wss.clients
+
+    //做迴圈，發送訊息至每個 client
+    clients.forEach(client => {
+        client.send(JSON.stringify({
+            type: 'message',
+            data: {
+                message,
+            }
+        }))
+    })
+}
+
+setInterval(()=>{
+    sendMessage('hello');
+}, 10 * 1000);
+
 //當 WebSocket 從外部連結時執行
 wss.on('connection', ws => {
 
@@ -22,14 +41,21 @@ wss.on('connection', ws => {
     //對 message 設定監聽，接收從 Client 發送的訊息
     ws.on('message', rawData => {
         const data = rawData.toString();
+        let pares = false;
 
-        //取得所有連接中的 client
-        let clients = wss.clients
+        try {
+            pares = JSON.parse(data);
+        } catch (e) {}
 
-        //做迴圈，發送訊息至每個 client
-        clients.forEach(client => {
-            client.send(data)
-        })
+        if (!pares) {
+            return;
+        }
+
+        switch (pares.type) {
+            case 'send_message':
+                sendMessage(pares.data.message);
+                break;
+        }
     })
 
     //當 WebSocket 的連線關閉時執行
