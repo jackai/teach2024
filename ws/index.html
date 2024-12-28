@@ -70,8 +70,7 @@ const auth1 = () => {
     ws.send(JSON.stringify({
         type: 'auth',
         data: {
-            user_id: 123,
-            user_name: 'user1',
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6MTIzLCJ1c2VyX25hbWUiOiJqd3RfdGVzdF8xIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4MjcyMzkwMjJ9.r576LHwnHVp24QpPqVtRFfQlx71Nf11USgoNt5DiWxI',
         }
     }));
 }
@@ -80,8 +79,7 @@ const auth2 = () => {
     ws.send(JSON.stringify({
         type: 'auth',
         data: {
-            user_id: 124,
-            user_name: 'user2',
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6MTI0LCJ1c2VyX25hbWUiOiJqd3RfdGVzdF8yIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4MjcyMzkwMjJ9.KcHsDKVM-SlJPtLwcqJxFhp9FLFtqTh0_C0ncMedwzI'
         }
     }));
 }

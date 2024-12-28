@@ -1,9 +1,11 @@
 //import express 和 ws 套件
 const express = require('express')
 const SocketServer = require('ws').Server
+const jwt = require('jsonwebtoken');
 
 //指定開啟的 port
 const PORT = 3000
+const JWT_KEY = 'test123';
 
 //創建 express 的物件，並綁定及監聽 3000 port ，且設定開啟後在 console 中提示
 const server = express()
@@ -28,11 +30,20 @@ const sendMessage = (message) => {
 }
 
 const auth = (data) => {
-    // TODO: 基本驗證
-    return {
-        user_id: data.user_id,
-        user_name: data.user_name,
-    };
+    try {
+        const decode = jwt.verify(data.token, JWT_KEY);
+
+        return {
+            user_id: decode.user_id,
+            user_name: decode.user_name,
+        };
+    } catch (e) {
+        console.log('jwt error' + e.message);
+        return {
+            user_id: 0,
+            user_name: '',
+        };
+    }
 };
 
 setInterval(()=>{
