@@ -10,6 +10,9 @@
 
 <textarea id="send-message"></textarea>
 <button type="button" id="send-btn" onclick="sendMessage()">send</button>
+
+<button type="button" onclick="auth1()">使用者1登入</button>
+<button type="button" onclick="auth2()">使用者2登入</button>
     <script>
 //使用 WebSocket 的網址向 Server 開啟連結
 let ws = new WebSocket('ws://localhost:3000')
@@ -62,6 +65,24 @@ const sendMessage = () => {
     }));
     sendMessageDom.value = '';
 };
+
+const auth1 = () => {
+    ws.send(JSON.stringify({
+        type: 'auth',
+        data: {
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6MTIzLCJ1c2VyX25hbWUiOiJqd3RfdGVzdF8xIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4MjcyMzkwMjJ9.r576LHwnHVp24QpPqVtRFfQlx71Nf11USgoNt5DiWxI',
+        }
+    }));
+}
+
+const auth2 = () => {
+    ws.send(JSON.stringify({
+        type: 'auth',
+        data: {
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6MTI0LCJ1c2VyX25hbWUiOiJqd3RfdGVzdF8yIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4MjcyMzkwMjJ9.KcHsDKVM-SlJPtLwcqJxFhp9FLFtqTh0_C0ncMedwzI'
+        }
+    }));
+}
     </script>
 </body>
 </html>
