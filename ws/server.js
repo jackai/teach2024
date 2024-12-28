@@ -48,9 +48,11 @@ const auth = (data) => {
 
 setInterval(()=>{
     sendMessage('hello');
+
+    console.log(`目前線上人數為: ${Object.keys(clients).length}`);
 }, 10 * 1000);
 
-const clients = [];
+const clients = {};
 let client_id_seq = 0;
 
 //當 WebSocket 從外部連結時執行
