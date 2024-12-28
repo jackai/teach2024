@@ -27,9 +27,20 @@ const sendMessage = (message) => {
     })
 }
 
+const auth = (data) => {
+    // TODO: 基本驗證
+    return {
+        user_id: data.user_id,
+        user_name: data.user_name,
+    };
+};
+
 setInterval(()=>{
     sendMessage('hello');
 }, 10 * 1000);
+
+const clients = [];
+let client_id_seq = 0;
 
 //當 WebSocket 從外部連結時執行
 wss.on('connection', ws => {
@@ -37,6 +48,14 @@ wss.on('connection', ws => {
     //連結時執行此 console 提示
     console.log('Client connected')
 
+    const client_id = client_id_seq++;
+    clients[client_id] = {
+        ws, 
+        auth: {
+            user_id:0,
+            user_name:''
+        }
+    };
     
     //對 message 設定監聽，接收從 Client 發送的訊息
     ws.on('message', rawData => {
@@ -53,13 +72,21 @@ wss.on('connection', ws => {
 
         switch (pares.type) {
             case 'send_message':
-                sendMessage(pares.data.message);
+                sendMessage(clients[client_id].auth.user_name + ":" + pares.data.message);
+                break;
+            case 'auth':
+                clients[client_id].auth = auth(pares.data);
+
+                if (clients[client_id].auth.user_id !== 0) {
+                    sendMessage(`${clients[client_id].auth.user_name} 成功登入!`);
+                }
                 break;
         }
     })
 
     //當 WebSocket 的連線關閉時執行
     ws.on('close', () => {
-        console.log('Close connected')
+        sendMessage(`${clients[client_id].auth.user_name} 登出!`);
+        delete clients[client_id];
     })
 })

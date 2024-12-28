@@ -10,6 +10,9 @@
 
 <textarea id="send-message"></textarea>
 <button type="button" id="send-btn" onclick="sendMessage()">send</button>
+
+<button type="button" onclick="auth1()">使用者1登入</button>
+<button type="button" onclick="auth2()">使用者2登入</button>
     <script>
 //使用 WebSocket 的網址向 Server 開啟連結
 let ws = new WebSocket('ws://localhost:3000')
@@ -62,6 +65,26 @@ const sendMessage = () => {
     }));
     sendMessageDom.value = '';
 };
+
+const auth1 = () => {
+    ws.send(JSON.stringify({
+        type: 'auth',
+        data: {
+            user_id: 123,
+            user_name: 'user1',
+        }
+    }));
+}
+
+const auth2 = () => {
+    ws.send(JSON.stringify({
+        type: 'auth',
+        data: {
+            user_id: 124,
+            user_name: 'user2',
+        }
+    }));
+}
     </script>
 </body>
 </html>
